@@ -2,24 +2,21 @@ import React from "react"
 import { render } from "react-dom"
 import App from "./components/App"
 import "todomvc-app-css/index.css"
-import { connectReduxDevtools } from "mobx-state-tree/middleware/redux"
 
-import TodoStore from "./models/todos"
-
-const store = TodoStore.create({
+const store = {
+    filter: "all",
     todos: [
         {
-            text: "learn Mobx",
+            text: "find an excuse to go to Verona",
             completed: false,
             id: 0
         },
         {
-            text: "learn MST",
+            text: "kiss lover at the Romeo & Julia  balcony",
             completed: false,
             id: 1
         }
     ]
-})
-connectReduxDevtools(require("remotedev"), store)
+}
 
 render(<App store={store} />, document.getElementById("root"))
