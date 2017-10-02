@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from "react"
+import React, { Component } from "react"
 import classnames from "classnames"
 import TodoTextInput from "./TodoTextInput"
 import { observer } from "mobx-react"
