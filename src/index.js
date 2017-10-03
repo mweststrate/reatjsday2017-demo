@@ -2,7 +2,7 @@ import React from "react"
 import { render } from "react-dom"
 import App from "./components/App"
 import { Store } from "./models/store"
-import { onSnapshot, applyPatch } from "mobx-state-tree"
+import { onSnapshot } from "mobx-state-tree"
 
 import "todomvc-app-css/index.css"
 

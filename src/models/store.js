@@ -1,16 +1,7 @@
-import {
-    types,
-    onSnapshot,
-    applySnapshot,
-    getSnapshot,
-    getEnv,
-    addMiddleware,
-    destroy,
-    getParent
-} from "mobx-state-tree"
+import { types, destroy, getParent } from "mobx-state-tree"
 
-import { TimeTraveller } from "./TimeTraveller"
-import { UndoManager } from "./UndoManager"
+import TimeTraveller from "mobx-state-tree/middleware/TimeTraveller"
+import UndoManager from "mobx-state-tree/middleware/UndoManager"
 
 export const Todo = types
     .model({

@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import TodoItem from "./TodoItem"
 import Footer from "./Footer"
 import { observer } from "mobx-react"
