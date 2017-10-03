@@ -1,0 +1,129 @@
+// store.js
+import { types } from "mobx-state-tree"
+
+export const Todo = types
+    .model({
+        text: "stuff",
+        completed: false,
+        id: types.number
+    })
+
+export const Store = types
+    .model({
+        filter: types.enumeration("filter", ["all", "active", "completed"]),
+        todos: types.array(Todo),
+    })
+
+// index.js
+import { Store } from "./models/store"
+
+let store = Store.create(initialState)
+
+render(<App store={store} />, document.getElementById("root"))
+
+-----------
+
+import { onSnapshot } from "mobx-state-tree"
+
+const initialState = localStorage.getItem("store")
+    ? JSON.parse(localStorage.getItem("store"))
+    : // what was there
+
+onSnapshot(store, snapshot => localStorage.setItem("store", JSON.stringify(snapshot)))
+
+---
+
+// Todo in store.js
+.actions(self => ({
+        complete() {
+            self.completed = !self.completed
+        }
+}))
+
+// Store in store.js. Show @ts-check with setFilter. Then disable and add addTodo.
+ .actions(self => ({
+        setFilter(filter) {
+            self.filter = filter
+        }
+        addTodo(text) {
+            self.todos.push({ text, id: Math.random() })
+        },
+ }))
+
+ // TODO item.js
+ onChange of checkbox to : `onChange={todo.complete}`
+
+------
+// add observer to
+
+Footer
+MainSection
+TodoItem
+// app should basically work now (toggling / adding items)
+
+---
+
+// adding views to Store
+
+.views(self => ({
+        get activeCount() {
+            return self.todos.filter(todo => todo.completed === true).length
+        },
+        get filteredTodos() {
+            switch (self.filter) {
+                case "all":
+                    return self.todos
+                case "active":
+                    return self.todos.filter(todo => !todo.completed)
+                case "completed":
+                    return self.todos.filter(todo => todo.completed)
+            }
+        }
+    }))
+
+
+// switch MainSection from rendering `todos` to `filteredTodos`
+
+
+---
+
+// Time travelling (show that this works, even with reload)
+// N.B. if middleware branch is not released yet, run `npm install pathTo/mobx-state-tree` first (don't forget to install build there)
+
+import TimeTraveller from "mobx-state-tree/middleware/TimeTraveller"
+
+// Store.history
+        history: types.optional(TimeTraveller, { targetPath: "../todos" })
+
+---
+
+// Break time traveler, index.js:
+
+setInterval(() => {
+     store.addTodo("TEST")
+}, 5000)
+
+
+---
+
+UndoManager
+
+// store.js
+import UndoManager from "mobx-state-tree/middleware/UndoManager"
+
+// index.js:
+
+setInterval(() => {
+     store.history.withoutUndo(() => {
+         store.addTodo("TEST")
+     })
+}, 5000)
+
+
+---
+
+Devtools
+
+import { connectReduxDevtools } from "mobx-state-tree/middleware/redux"
+
+connectReduxDevtools(require("remotedev"), store)

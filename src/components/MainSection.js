@@ -6,10 +6,10 @@ import { observer } from "mobx-react"
 const MainSection = ({ store }) => (
     <section className="main">
         <ul className="todo-list">
-            {store.filteredTodos.map(todo => <TodoItem key={todo.id} todo={todo} />)}
+            {store.todos.map(todo => <TodoItem key={todo.id} todo={todo} />)}
         </ul>
         {store.todos.length && <Footer store={store} />}
     </section>
 )
 
-export default observer(MainSection)
+export default MainSection

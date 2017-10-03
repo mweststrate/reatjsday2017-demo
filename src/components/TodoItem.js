@@ -33,12 +33,7 @@ class TodoItem extends Component {
             />
         ) : (
             <div className="view">
-                <input
-                    className="toggle"
-                    type="checkbox"
-                    checked={todo.completed}
-                    onChange={() => todo.complete()}
-                />
+                <input className="toggle" type="checkbox" checked={todo.completed} />
                 <label onDoubleClick={this.handleDoubleClick}>{todo.text}</label>
                 <button className="destroy" onClick={todo.remove} />
             </div>
@@ -57,4 +52,4 @@ class TodoItem extends Component {
     }
 }
 
-export default observer(TodoItem)
+export default TodoItem

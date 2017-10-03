@@ -35,4 +35,4 @@ const FilterLink = ({ store, filter, selected }) => (
     </li>
 )
 
-export default observer(Footer)
+export default Footer
