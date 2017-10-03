@@ -3,6 +3,7 @@ import { render } from "react-dom"
 import App from "./components/App"
 import { Store } from "./models/store"
 import { onSnapshot } from "mobx-state-tree"
+import { connectReduxDevtools } from "mobx-state-tree/middleware/redux"
 
 import "todomvc-app-css/index.css"
 
@@ -29,6 +30,8 @@ let store = Store.create(initialState)
 onSnapshot(store, snapshot => localStorage.setItem("store", JSON.stringify(snapshot)))
 
 render(<App store={store} />, document.getElementById("root"))
+
+connectReduxDevtools(require("remotedev"), store)
 
 // setInterval(() => {
 //     store.history.withoutUndo(() => {
