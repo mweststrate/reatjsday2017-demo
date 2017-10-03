@@ -1,25 +1,23 @@
 import React, { Component } from "react"
 import TodoTextInput from "./TodoTextInput"
+import { observer } from "mobx-react"
 
-class Header extends Component {
-    handleSave = text => {
-        if (text.length !== 0) {
-            this.props.addTodo(text)
-        }
-    }
-
-    render() {
-        return (
-            <header className="header">
-                <h1>todos</h1>
-                <TodoTextInput
-                    newTodo
-                    onSave={this.handleSave}
-                    placeholder="What needs to be done?"
-                />
-            </header>
-        )
-    }
+const Header = ({ store }) => {
+    const timeTraveller = store.history || {}
+    return (
+        <header className="header">
+            <h1>todos</h1>
+            <div className="undoredo">
+                <button disabled={!timeTraveller.canUndo} onClick={timeTraveller.undo}>
+                    ↩
+                </button>
+                <button disabled={!timeTraveller.canRedo} onClick={timeTraveller.redo}>
+                    ↪
+                </button>
+            </div>
+            <TodoTextInput newTodo onSave={store.addTodo} placeholder="What needs to be done?" />
+        </header>
+    )
 }
 
-export default Header
+export default observer(Header)

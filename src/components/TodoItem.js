@@ -25,29 +25,24 @@ class TodoItem extends Component {
     render() {
         const { todo } = this.props
 
-        let element
-        if (this.state.editing) {
-            element = (
-                <TodoTextInput
-                    text={todo.text}
-                    editing={this.state.editing}
-                    onSave={text => this.handleSave(todo.id, text)}
+        const element = this.state.editing ? (
+            <TodoTextInput
+                text={todo.text}
+                editing={this.state.editing}
+                onSave={text => this.handleSave(todo.id, text)}
+            />
+        ) : (
+            <div className="view">
+                <input
+                    className="toggle"
+                    type="checkbox"
+                    checked={todo.completed}
+                    onChange={() => todo.complete()}
                 />
-            )
-        } else {
-            element = (
-                <div className="view">
-                    <input
-                        className="toggle"
-                        type="checkbox"
-                        checked={todo.completed}
-                        onChange={() => todo.complete()}
-                    />
-                    <label onDoubleClick={this.handleDoubleClick}>{todo.text}</label>
-                    <button className="destroy" onClick={() => todo.remove()} />
-                </div>
-            )
-        }
+                <label onDoubleClick={this.handleDoubleClick}>{todo.text}</label>
+                <button className="destroy" onClick={todo.remove} />
+            </div>
+        )
 
         return (
             <li
@@ -62,4 +57,4 @@ class TodoItem extends Component {
     }
 }
 
-export default TodoItem
+export default observer(TodoItem)

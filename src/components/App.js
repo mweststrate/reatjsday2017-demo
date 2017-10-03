@@ -4,7 +4,7 @@ import MainSection from "../components/MainSection"
 
 const App = ({ store }) => (
     <div>
-        <Header addTodo={store.addTodo} />
+        <Header store={store} />
         <MainSection store={store} />
     </div>
 )
