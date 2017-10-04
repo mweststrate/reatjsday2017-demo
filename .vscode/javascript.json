@@ -1,0 +1,87 @@
+{
+    "Snippet1": {
+        "prefix": "snippet1",
+        "body": [
+            "import { types } from \"mobx-state-tree\"",
+            "",
+            "",
+            "export const Todo = types",
+            "   .model({",
+            "        text: \"stuff\",",
+            "        completed: false,",
+            "        id: types.number",
+            "    })",
+            "",
+            "export const Store = types",
+            "    .model({",
+            "       filter: types.enumeration(\"filter\", [\"all\", \"active\", \"completed\"]),",
+            "       todos: types.array(Todo),",
+            "   })"
+        ]
+    },
+    "Snippet2": {
+        "prefix": "snippet2",
+        "body": [
+            "import { Store } from \"./models/store\"",
+            "",
+            "let store = Store.create(initialState)",
+            "",
+            "render(<App store={store} />, document.getElementById(\"root\"))"
+        ]
+    },
+    "Snippet3": {
+        "prefix": "snippet3",
+        "body": [
+            "import { onSnapshot } from \"mobx-state-tree\"",
+            "",
+            "const initialState = localStorage.getItem(\"store\")",
+            "    ? JSON.parse(localStorage.getItem(\"store\"))",
+            "    : // what was there",
+            "",
+            "onSnapshot(store, snapshot => localStorage.setItem(\"store\", JSON.stringify(snapshot)))"
+        ]
+    },
+    "Snippet4": {
+        "prefix": "snippet4",
+        "body": [
+            ".actions(self => ({",
+            "        complete() {",
+            "            self.completed = !self.completed",
+            "        }",
+            "}))"
+        ]
+    },
+    "Snippet5": {
+        "prefix": "snippet5",
+        "body": [
+            " .actions(self => ({",
+            "        setFilter(filter) {",
+            "            self.filter = filter",
+            "        }",
+            "        addTodo(text) {",
+            "            self.todos.push({ text, id: Math.random() })",
+            "        },",
+            " }))"
+        ]
+    },
+    "Snippet6": {
+        "prefix": "snippet6",
+        "body": [
+            ".views(self => ({",
+            "        get activeCount() {",
+            "            return self.todos.filter(todo => todo.completed === true).length",
+            "        },",
+            "        get filteredTodos() {",
+            "            switch (self.filter) {",
+            "                case \"all\":",
+            "                    return self.todos",
+            "                case \"active\":",
+            "                    return self.todos.filter(todo => !todo.completed)",
+            "                case \"completed\":",
+            "                    return self.todos.filter(todo => todo.completed)",
+            "            }",
+            "        }",
+            "    }))"
+        ]
+    }
+}

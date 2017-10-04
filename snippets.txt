@@ -1,4 +1,8 @@
-// store.js
+// PREPS
+// 1. Copy .vscode/javascript.json to local user folder
+// 2. if middleware branch is not released yet, run `npm install pathTo/mobx-state-tree` first (don't forget to install build there)
+
+// store.js - snippet1
 import { types } from "mobx-state-tree"
 
 export const Todo = types
@@ -14,7 +18,7 @@ export const Store = types
         todos: types.array(Todo),
     })
 
-// index.js
+// index.js - snippet2
 import { Store } from "./models/store"
 
 let store = Store.create(initialState)
@@ -22,7 +26,7 @@ let store = Store.create(initialState)
 render(<App store={store} />, document.getElementById("root"))
 
 -----------
-
+// index.js - snippet3
 import { onSnapshot } from "mobx-state-tree"
 
 const initialState = localStorage.getItem("store")
@@ -33,14 +37,15 @@ onSnapshot(store, snapshot => localStorage.setItem("store", JSON.stringify(snaps
 
 ---
 
-// Todo in store.js
+// Todo in store.js - snippet4
 .actions(self => ({
         complete() {
             self.completed = !self.completed
         }
 }))
 
-// Store in store.js. Show @ts-check with setFilter. Then disable and add addTodo.
+// Show @ts-check with setFilter. Then disable and add addTodo.
+// Store in store.js. - snippet5
  .actions(self => ({
         setFilter(filter) {
             self.filter = filter
@@ -50,7 +55,7 @@ onSnapshot(store, snapshot => localStorage.setItem("store", JSON.stringify(snaps
         },
  }))
 
- // TODO item.js
+ // TodoItem.js
  onChange of checkbox to : `onChange={todo.complete}`
 
 ------
@@ -64,7 +69,7 @@ TodoItem
 ---
 
 // adding views to Store
-
+// store.js - snippet6
 .views(self => ({
         get activeCount() {
             return self.todos.filter(todo => todo.completed === true).length
@@ -106,7 +111,7 @@ setInterval(() => {
 
 ---
 
-UndoManager
+// UndoManager
 
 // store.js
 import UndoManager from "mobx-state-tree/middleware/UndoManager"
@@ -122,7 +127,7 @@ setInterval(() => {
 
 ---
 
-Devtools
+// Devtools
 
 import { connectReduxDevtools } from "mobx-state-tree/middleware/redux"
 
