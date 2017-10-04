@@ -25,7 +25,30 @@ let store = Store.create(initialState)
 
 render(<App store={store} />, document.getElementById("root"))
 
------------
+---
+
+// Show @ts-check with completed. Then disable
+// Todo in store.js - snippet4
+.actions(self => ({
+        complete() {
+            self.completed = !self.completed
+        }
+}))
+
+ // TodoItem.js
+ onChange of checkbox to : `onChange={todo.complete}`
+
+---
+
+// add observer to
+
+Footer
+MainSection
+TodoItem
+// app should basically work now (toggling / adding items)
+
+---
+
 // index.js - snippet3
 import { onSnapshot } from "mobx-state-tree"
 
@@ -37,14 +60,6 @@ onSnapshot(store, snapshot => localStorage.setItem("store", JSON.stringify(snaps
 
 ---
 
-// Todo in store.js - snippet4
-.actions(self => ({
-        complete() {
-            self.completed = !self.completed
-        }
-}))
-
-// Show @ts-check with setFilter. Then disable and add addTodo.
 // Store in store.js. - snippet5
  .actions(self => ({
         setFilter(filter) {
@@ -54,17 +69,6 @@ onSnapshot(store, snapshot => localStorage.setItem("store", JSON.stringify(snaps
             self.todos.push({ text, id: Math.random() })
         },
  }))
-
- // TodoItem.js
- onChange of checkbox to : `onChange={todo.complete}`
-
-------
-// add observer to
-
-Footer
-MainSection
-TodoItem
-// app should basically work now (toggling / adding items)
 
 ---
 
@@ -88,7 +92,6 @@ TodoItem
 
 
 // switch MainSection from rendering `todos` to `filteredTodos`
-
 
 ---
 
