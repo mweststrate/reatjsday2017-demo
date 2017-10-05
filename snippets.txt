@@ -2,6 +2,9 @@
 // 1. Copy .vscode/javascript.json to local user folder
 // 2. if middleware branch is not released yet, run `npm install pathTo/mobx-state-tree` first (don't forget to install build there)
 
+// === STATIC APP ===
+
+// === INTRODUCE MODELS ===
 // store.js - snippet1
 import { types } from "mobx-state-tree"
 
@@ -26,9 +29,10 @@ let store = Store.create(initialState)
 render(<App store={store} />, document.getElementById("root"))
 
 ---
+// === ACTIONS ===
 
 // Show @ts-check with completed. Then disable
-// Todo in store.js - snippet4
+// Todo in store.js - snippet3
 .actions(self => ({
         complete() {
             self.completed = !self.completed
@@ -48,19 +52,9 @@ TodoItem
 // app should basically work now (toggling / adding items)
 
 ---
+// === VIEWS ===
 
-// index.js - snippet3
-import { onSnapshot } from "mobx-state-tree"
-
-const initialState = localStorage.getItem("store")
-    ? JSON.parse(localStorage.getItem("store"))
-    : // what was there
-
-onSnapshot(store, snapshot => localStorage.setItem("store", JSON.stringify(snapshot)))
-
----
-
-// Store in store.js. - snippet5
+// Store in store.js. - snippet4
  .actions(self => ({
         setFilter(filter) {
             self.filter = filter
@@ -73,7 +67,7 @@ onSnapshot(store, snapshot => localStorage.setItem("store", JSON.stringify(snaps
 ---
 
 // adding views to Store
-// store.js - snippet6
+// store.js - snippet5
 .views(self => ({
         get activeCount() {
             return self.todos.filter(todo => todo.completed === true).length
@@ -95,9 +89,25 @@ onSnapshot(store, snapshot => localStorage.setItem("store", JSON.stringify(snaps
 
 ---
 
+// === SNAPSHOTS ===
+
+// index.js - snippet6
+import { onSnapshot } from "mobx-state-tree"
+
+const initialState = localStorage.getItem("store")
+    ? JSON.parse(localStorage.getItem("store"))
+    : // what was there
+
+onSnapshot(store, snapshot => localStorage.setItem("store", JSON.stringify(snapshot)))
+
+---
+
+// === TIME TRAVEL ===
+
 // Time travelling (show that this works, even with reload)
 // N.B. if middleware branch is not released yet, run `npm install pathTo/mobx-state-tree` first (don't forget to install build there)
 
+// store.js - snippet7
 import TimeTraveller from "mobx-state-tree/middleware/TimeTraveller"
 
 // Store.history
@@ -105,8 +115,11 @@ import TimeTraveller from "mobx-state-tree/middleware/TimeTraveller"
 
 ---
 
+// === AUTOMATICALLY APPLY CHANGES ===
+
 // Break time traveler, index.js:
 
+// index.js - snippet8
 setInterval(() => {
      store.addTodo("TEST")
 }, 5000)
@@ -114,12 +127,14 @@ setInterval(() => {
 
 ---
 
+// === UNDO REDO MANAGER ===
+
 // UndoManager
 
-// store.js
+// store.js - snippet9
 import UndoManager from "mobx-state-tree/middleware/UndoManager"
 
-// index.js:
+// index.js - snippet10
 
 setInterval(() => {
      store.history.withoutUndo(() => {
@@ -130,7 +145,9 @@ setInterval(() => {
 
 ---
 
-// Devtools
+// === REMOTE DEVTOOLS ===
+
+// index.js - snippet11
 
 import { connectReduxDevtools } from "mobx-state-tree/middleware/redux"
 

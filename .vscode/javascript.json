@@ -32,18 +32,6 @@
     "Snippet3": {
         "prefix": "snippet3",
         "body": [
-            "import { onSnapshot } from \"mobx-state-tree\"",
-            "",
-            "const initialState = localStorage.getItem(\"store\")",
-            "    ? JSON.parse(localStorage.getItem(\"store\"))",
-            "    : // what was there",
-            "",
-            "onSnapshot(store, snapshot => localStorage.setItem(\"store\", JSON.stringify(snapshot)))"
-        ]
-    },
-    "Snippet4": {
-        "prefix": "snippet4",
-        "body": [
             ".actions(self => ({",
             "        complete() {",
             "            self.completed = !self.completed",
@@ -51,8 +39,8 @@
             "}))"
         ]
     },
-    "Snippet5": {
-        "prefix": "snippet5",
+    "Snippet4": {
+        "prefix": "snippet4",
         "body": [
             " .actions(self => ({",
             "        setFilter(filter) {",
@@ -64,8 +52,8 @@
             " }))"
         ]
     },
-    "Snippet6": {
-        "prefix": "snippet6",
+    "Snippet5": {
+        "prefix": "snippet5",
         "body": [
             ".views(self => ({",
             "        get activeCount() {",
@@ -82,6 +70,56 @@
             "            }",
             "        }",
             "    }))"
+        ]
+    },
+    "Snippet6": {
+        "prefix": "snippet6",
+        "body": [
+            "import { onSnapshot } from \"mobx-state-tree\"",
+            "",
+            "const initialState = localStorage.getItem(\"store\")",
+            "    ? JSON.parse(localStorage.getItem(\"store\"))",
+            "    : // what was there",
+            "",
+            "onSnapshot(store, snapshot => localStorage.setItem(\"store\", JSON.stringify(snapshot)))"
+        ]
+    },
+    "Snippet7": {
+        "prefix": "snippet7",
+        "body": [
+            "import TimeTraveller from \"mobx-state-tree/middleware/TimeTraveller\"",
+            "history: types.optional(TimeTraveller, { targetPath: \"../todos\" })"
+        ]
+    },
+    "Snippet8": {
+        "prefix": "snippet8",
+        "body": [
+            "setInterval(() => {",
+            "    store.addTodo(\"TEST\")",
+            "}, 5000)"
+        ]
+    },
+    "Snippet9": {
+        "prefix": "snippet9",
+        "body": [
+            "import UndoManager from \"mobx-state-tree/middleware/UndoManager\""
+        ]
+    },
+    "Snippet10": {
+        "prefix": "snippet10",
+        "body": [
+            "setInterval(() => {",
+            "    store.history.withoutUndo(() => {",
+            "        store.addTodo(\"TEST\")",
+            "   })",
+            "}, 5000)"
+        ]
+    },
+    "Snippet11": {
+        "prefix": "snippet11",
+        "body": [
+            "import { connectReduxDevtools } from \"mobx-state-tree/middleware/redux\"",
+            "connectReduxDevtools(require(\"remotedev\"), store)"
         ]
     }
 }
