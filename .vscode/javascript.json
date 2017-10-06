@@ -102,7 +102,8 @@
     "Snippet9": {
         "prefix": "snippet9",
         "body": [
-            "import UndoManager from \"mobx-state-tree/middleware/UndoManager\""
+            "import UndoManager from \"mobx-state-tree/middleware/UndoManager\"",
+            "history: types.optional(UndoManager, {})"
         ]
     },
     "Snippet10": {
